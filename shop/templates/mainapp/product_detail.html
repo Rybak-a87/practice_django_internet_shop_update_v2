@@ -25,21 +25,6 @@
         <hr>
         <a href="{% url 'mainapp:add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>
     </div>
-    <p class="mt-4">Характеристики:</p>
-
-<!--   пример - реализация фильтра (тегов)-->
-<!--    аргументы передаются через двоиточие (функция|аргумент:аргумент)-->
-    {{ product|product_spec }}
-
-
-<!--    (if) проверка условия или условий-->
-<!--    {% if product.category.slug == "notebooks" }-->
-<!--    (include) единоразовая вставка части кода с шаблоном html в нужное место-->
-<!--        {% include "mainapp/include/notebook_specification.html" }-->
-<!--    {% else }-->
-<!--        {% include "mainapp/include/smartphone_specification.html" }-->
-<!--    {% endif }-->
-
 
 </div>
 
