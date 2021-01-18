@@ -1,0 +1,1 @@
+# practice_django_internet_shop_update_v2
