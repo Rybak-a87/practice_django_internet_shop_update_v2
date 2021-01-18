@@ -1,0 +1,4 @@
+.idea/
+django_lin_env/
+django_win_env/
+*.pyc
