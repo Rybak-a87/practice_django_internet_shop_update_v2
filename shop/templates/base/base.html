@@ -111,7 +111,7 @@
                 <!--truncatechars:50 - выводит первые 50 букв описания-->
                 <p class="card-text">{{ product.description|truncatechars:50 }}</p>
 
-                <a href="{% url 'mainapp:add_to_cart' ct_model=product.get_model_name slug=product.slug %}">
+                <a href="{% url 'mainapp:add_to_cart' slug=product.slug %}">
                   <button class="btn btn-danger">Добавить в корзину</button>
                 </a>
 

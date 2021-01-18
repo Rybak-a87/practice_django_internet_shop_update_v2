@@ -8,7 +8,7 @@ class CartMixin(View):
         if request.user.is_authenticated:    # если пользователь авторизован
             customer = Customer.objects.filter(user=request.user).first()    # поиск пользователя
             if not customer:    # если покупателя нет - создаем покупателя
-                customer = Customer.objects.cteate(user=request.user)
+                customer = Customer.objects.create(user=request.user)
             cart = Cart.objects.filter(owner=customer, in_order=False).first()    # поиск корзины которая относится к этому пользователю и не находится в заказе
             if not cart:    # если корзина найдена - созается новую корзина этого пользователя
                 cart = Cart.objects.create(owner=customer)

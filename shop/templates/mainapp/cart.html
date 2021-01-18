@@ -30,11 +30,11 @@
     <tbody>
         {% for item in cart.products.all %}
         <tr>
-            <th scope="row">{{ item.content_object.title }}</th>
-            <td class="w-25"><img src="{{ item.content_object.image.url }}" class="img-fluid"></td>
+            <th scope="row">{{ item.product.title }}</th>
+            <td class="w-25"><img src="{{ item.product.image.url }}" class="img-fluid"></td>
             <td>{{ item.content_object.price }} грн.</td>
             <td>
-                <form action="{% url 'mainapp:change_qty' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
+                <form action="{% url 'mainapp:change_qty' slug=item.product.slug %}" method="POST">
                 <!--в django при работе с формами и отправкой пост запросов обязательно использовать - csrf_token (иначе 403 ошибка)-->
                 {% csrf_token %}
                 <input type="number" class="form-control" name="qty" min="1" value="{{ item.qty }}">
@@ -44,7 +44,7 @@
             </td>
             <td>{{ item.final_price }} грн.</td>
             <td>
-                <a href="{% url 'mainapp:delete_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}">
+                <a href="{% url 'mainapp:delete_from_cart' slug=item.product.slug %}">
                     <bunnon class="btn btn-danger">Удалить из корзины</bunnon>
                 </a>
             </td>

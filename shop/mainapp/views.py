@@ -1,6 +1,5 @@
 from django.db import transaction
 from django.shortcuts import render
-from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages    # выводит информацию о каких либо осуществленных действиях
 from django.http import HttpResponseRedirect    # для перенаправления
 from django.views.generic import DetailView, View

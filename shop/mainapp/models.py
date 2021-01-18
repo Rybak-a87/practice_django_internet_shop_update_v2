@@ -48,7 +48,7 @@ class CartProduct(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name="Общая цена")
 
     def __str__(self):
-        return f"Продукт {self.content_object.title} (для корзины)"
+        return f"Продукт {self.product.title} (для корзины)"
 
     def save(self, *args, **kwargs):    # для определения цены товара в зависимости от его количества
         self.final_price = self.qty * self.product.price
