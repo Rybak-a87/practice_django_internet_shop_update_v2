@@ -46,3 +46,56 @@ class LoginForm(forms.ModelForm):
             "password"
         )
 
+
+class RegistrationForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput)    # подтверждение что пользователь ввел правильный пароль
+    password = forms.CharField(widget=forms.PasswordInput)
+    phone = forms.CharField(required=False)    # required=False - не одязательное поле
+    address = forms.CharField(required=False)
+    email = forms.EmailField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].label = "Логин"
+        self.fields["password"].label = "Пароль"
+        self.fields["confirm_password"].label = "Подтвердите пароль"
+        self.fields["email"].label = "Электронная почта"
+        self.fields["first_name"].label = "Ваше имя"
+        self.fields["last_name"].label = "Ваша фамилия"
+        self.fields["phone"].label = "Номер телефона"
+        self.fields["address"].label = "Адрес"
+
+    def clean_email(self):    # валидируем email (проверки)
+        email = self.cleaned_data["email"]
+        domain = email.split(".")[-1]
+        if domain in ("ru", "org"):
+            raise forms.ValidationError(f"Регистрация для домена {domain} невозможна")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Данный почтовый адрес уже зарегистрирован")
+        return email
+
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError(f"Логин {username} уже существует")
+        return username
+
+    def clean(self):    # проверка правильного повторного ввода пароля
+        password = self.cleaned_data["password"]
+        confirm_password = self.cleaned_data["confirm_password"]
+        if password != confirm_password:
+            raise forms.ValidationError("Пароли не совпадают")
+        return self.cleaned_data
+
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "password",
+            "confirm_password",
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "address",
+        )

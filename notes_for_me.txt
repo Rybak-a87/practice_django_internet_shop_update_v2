@@ -111,3 +111,5 @@ python manage.py test
 
 4. Авторизация (Django user authorization)
 
+5. Регистрация (Django user registration)
+

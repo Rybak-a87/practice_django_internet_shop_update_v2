@@ -49,7 +49,7 @@
               <a href="{% url 'mainapp:login' %}" class="nav-link text-light">Авторизация</a>
             </li>
             <li>
-              <a href="#" class="nav-link text-light">Регистрация</a>
+              <a href="{% url 'mainapp:registration' %}" class="nav-link text-light">Регистрация</a>
             </li>
           {% endif %}
 
@@ -60,9 +60,9 @@
                 Здравствуйте, <span class="badge badge-danger">
                   <a href="#" style="text-decoration:none; font-size:14px; color:white;">{{ request.user.username }}</a>
                 </span>
-              </span>
-
+              </span> | <a href="{% url 'mainapp:logout' %}">Выйти</a>
             {% endif %}
+
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
