@@ -31,6 +31,40 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link text-light dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Категории</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+              {% for category in categories %}
+                <a href="{{ category.get_absolute_url }}" class="dropdown-item">{{ category.name }}</a>
+              {% endfor %}
+
+            </div>
+          </li>
+
+          {% if not request.user.is_authenticated %}
+            <li>
+              <a href="#" class="nav-link text-light">Авторизация</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link text-light">Регистрация</a>
+            </li>
+          {% endif %}
+
+          <li class="nav-item">
+
+            {% if request.user.is_authenticated %}
+              <span class="navbar text text-light">
+                Здравствуйте, <span class="badge badge-danger">
+                  <a href="#" style="text-decoration:none; font-size:14px; color:white;">{{ request.user.username }}</a>
+                </span>
+              </span>
+
+            {% endif %}
+          </li>
+        </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'mainapp:cart' %}">Корзина <span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>

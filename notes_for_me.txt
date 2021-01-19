@@ -107,6 +107,8 @@ python manage.py test
 
 2. Рефакторинг (часть 2)
 
+3. Расширяем navbar
+
 
 
 
