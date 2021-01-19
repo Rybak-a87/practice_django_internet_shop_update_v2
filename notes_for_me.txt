@@ -109,8 +109,5 @@ python manage.py test
 
 3. Расширяем navbar
 
-
-
-
-
+4. Авторизация (Django user authorization)
 

@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.contrib import messages    # выводит информацию о каких либо осуществленных действиях
 from django.http import HttpResponseRedirect    # для перенаправления
 from django.views.generic import DetailView, View
+from django.contrib.auth import authenticate, login
 
 from .models import Product, Category, Customer, Cart, CartProduct
 from .mixins import CartMixin     # должет первый по порядку наследоватся
-from .forms import OrderForm
+from .forms import OrderForm, LoginForm
 from .utils import recalc_cart
 
 
@@ -138,3 +139,24 @@ class MakeOrderView(CartMixin, View):
         return HttpResponseRedirect("/checkout/")
 
 
+class LoginView(CartMixin, View):
+    def get(self, request, *args, **kwargs):    #get - для отрисовки формы
+        form = LoginForm(request.POST or None)
+        categories = Category.objects.all()
+        context = {
+            "form": form,
+            "categories": categories,
+            "cart": self.cart
+        }
+        return render(request, "mainapp/login.html", context)
+
+    def post(self, request, *args, **kwargs):    # post - для отправки данных в форму
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data["username"]    # забираем логин и пароль
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)    # авторизация
+            if user:
+                login(request, user)    # залогинитmься
+                return HttpResponseRedirect("/")
+        return render(request, "mainapp/login.html", {"form": form, "cart": self.cart})
