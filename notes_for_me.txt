@@ -115,3 +115,5 @@ python manage.py test
 
 6. Профиль пользователя (Django user profile)
 
+7. Характеристики товара (Новые модели)
+
