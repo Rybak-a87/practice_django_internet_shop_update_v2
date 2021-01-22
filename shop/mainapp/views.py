@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect    # для перенаправл�
 from django.views.generic import DetailView, View
 from django.contrib.auth import authenticate, login
 
-from .models import Product, Category, Customer, Cart, CartProduct
+from .models import Product, Category, Customer, Order, CartProduct
 from .mixins import CartMixin     # должет первый по порядку наследоватся
 from .forms import OrderForm, LoginForm, RegistrationForm
 from .utils import recalc_cart
@@ -37,7 +37,7 @@ class ProductDetailView(CartMixin, DetailView):
 
 class CategoryDetailView(CartMixin, DetailView):
     model = Category
-    queryset = Category.objects.all()
+    queryset = Category.objects.all()    # при использовании фильтра (.filter(key=value)) - можно использовать символы подчеркивания (__) для навигации по многим уровням отношений (ForeignKey / ManyToManyField) по своему усмотрению.
     context_object_name = "category"
     template_name = "mainapp/category_detail.html"
     slug_url_kwarg = "slug"
@@ -162,6 +162,7 @@ class LoginView(CartMixin, View):
         context = {"form": form, "cart": self.cart}
         return render(request, "mainapp/login.html", context)
 
+
 class RegistrationView(CartMixin, View):
     def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
@@ -194,3 +195,16 @@ class RegistrationView(CartMixin, View):
             return HttpResponseRedirect("/")
         context = {"form": form, "cart": self.cart}
         return render(request, "mainapp/registration.html", context)
+
+class ProfileView(CartMixin, View):
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        orders = Order.objects.filter(customer=customer).order_by("-created_date")    # сортировка в убывающем порядке
+        categories = Category.objects.all()
+        context = {
+            "orders": orders,
+            "categories": categories,
+            "cart": self.cart
+        }
+        return render(request, "mainapp/profile.html", context)
+

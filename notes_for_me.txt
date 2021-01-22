@@ -113,3 +113,5 @@ python manage.py test
 
 5. Регистрация (Django user registration)
 
+6. Профиль пользователя (Django user profile)
+

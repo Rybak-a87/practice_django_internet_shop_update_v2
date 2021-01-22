@@ -19,5 +19,6 @@ urlpatterns = [
     path("make-order/", views.MakeOrderView.as_view(), name="make_order"),
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(next_page="/"), name="logout"),    # выйди с учетной записи с переходом на главную страницу
-    path("registration/", views.RegistrationView.as_view(), name="registration")
+    path("registration/", views.RegistrationView.as_view(), name="registration"),
+    path("profile/", views.ProfileView.as_view(), name="profile")
 ]

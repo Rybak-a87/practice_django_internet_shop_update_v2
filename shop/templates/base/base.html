@@ -58,9 +58,10 @@
             {% if request.user.is_authenticated %}
               <span class="navbar text text-light">
                 Здравствуйте, <span class="badge badge-danger">
-                  <a href="#" style="text-decoration:none; font-size:14px; color:white;">{{ request.user.username }}</a>
+                  <a href="{% url 'mainapp:profile' %}" style="text-decoration:none; font-size:14px; color:white;">{{ request.user.username }}</a>
                 </span>
-              </span> | <a href="{% url 'mainapp:logout' %}">Выйти</a>
+                 | <a href="{% url 'mainapp:logout' %}" style="color: white; text-decoration: none">Выйти</a>
+              </span>
             {% endif %}
 
           </li>
