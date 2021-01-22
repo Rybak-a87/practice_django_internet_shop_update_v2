@@ -115,5 +115,16 @@ python manage.py test
 
 6. Профиль пользователя (Django user profile)
 
-7. Характеристики товара (Новые модели)
+7. Новые модели
+
+8. Подключаем PostgreSQL
+    pip install psycopg2-binary
+
+    psql postgres
+    создать базу данных:
+        CREATE DATABASE <имя базы>;
+    создать пользователя:
+        CREATE USER <имя пользователя> WITH PASSWORD '<пароль>';
+    дать пользователю все права на управление базой данных (root):
+        GRANT ALL PRIVILEGES ON DATABASE  "<имя базы>" TO <имя пользователя>;
 

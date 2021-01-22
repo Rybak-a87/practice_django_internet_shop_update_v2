@@ -77,9 +77,21 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+    '''
+    # подключение базы данных SqLite
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    '''
+    # подключение базы данных PostgreSQL
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",    # бэкенд (подключение базы данных)
+        "NAME": "internet_shop_db",    # имя базы данных
+        "USER": "is_user",    # имя суперпользователя
+        "PASSWORD": "devpass",    # пароль суперпользователя
+        "HOST": "127.0.0.1",    # расположение базы данных
+        "PORT": 5432
     }
 }
 
